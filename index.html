@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Les Petits Plats</title>
+    <link rel="shortcut icon" href="assets/icons/favicon.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header class="header">
+        <img src="assets/icons/icon.png" alt="Logo Les Petits Plats" class="logo">
+        <!-- Hidden Title For Semantic -->
+        <h1 class="header-title">Les Petits Plats</h1>
+    </header>
+
+    <main>
+        <article class="search">
+            <section class="search-bar searchbar">
+                <input type="text" name="searchbar" id="searchbar" class="searchbar-input" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"/>
+                <button class="searchbar-button">
+                    <i class="far fa-search"></i>
+                </button>
+            </section>
+            <section class="search-tags">
+                <ul id="tags"></ul>
+            </section>
+            <section class="search-filters">
+                <div class="search-filters-item dropdown dropdown-ingredient" data-type="ingredient">
+                    <div class="dropdown-form">
+                        <input type="text" name="dropdown-ingredients" id="dropdown-ingredients" data-placeholder="Ingrédients" data-placeholder-focus="Rechercher un ingrédient" class="dropdown-form-input"/>
+                        <button class="dropdown-form-button">
+                            <i class="far fa-angle-down"></i>
+                        </button>
+                    </div>
+                    <ul class="dropdown-items" id="filters-ingredients"></ul>
+                </div>
+                <div class="search-filters-item dropdown dropdown-device" data-type="device">
+                    <div class="dropdown-form">
+                        <input type="text" name="dropdown-devices" id="dropdown-devices" data-placeholder="Appareil" data-placeholder-focus="Rechercher un appareil" class="dropdown-form-input" />
+                        <button class="dropdown-form-button">
+                            <i class="far fa-angle-down"></i>
+                        </button>
+                    </div>
+                    <ul class="dropdown-items" id="filters-devices"></ul>
+                </div>
+                <div class="search-filters-item dropdown dropdown-utensil" data-type="utensil">
+                    <div class="dropdown-form">
+                        <input type="text" name="dropdown-utensils" id="dropdown-utensils" data-placeholder="Ustensiles" data-placeholder-focus="Rechercher un ustensil" class="dropdown-form-input"/>
+                        <button class="dropdown-form-button">
+                            <i class="far fa-angle-down"></i>
+                        </button>
+                    </div>
+                    <ul class="dropdown-items" id="filters-utensils"></ul>
+                </div>
+            </section>
+        </article>
+        <article class="recipes" id="recipes">
+        </article>
+    </main>
+</body>
+</html>
