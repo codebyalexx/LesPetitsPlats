@@ -1,0 +1,360 @@
+@import url("https://pro.fontawesome.com/releases/v5.10.0/css/all.css");
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.header-title {
+  display: none;
+}
+
+.search {
+  width: calc(100% - 20px * 2);
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+@media screen and (max-width: 1400px) {
+  .search {
+    max-width: 1100px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .search {
+    max-width: 1000px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .search {
+    max-width: 720px;
+  }
+}
+@media screen and (max-width: 760px) {
+  .search {
+    max-width: 480px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .search {
+    max-width: calc(100% - 40px);
+  }
+}
+.search-bar, .search-tags, .search-filters {
+  width: 100%;
+  padding: 5px 0;
+}
+@media screen and (max-width: 1024px) {
+  .search-bar, .search-tags, .search-filters {
+    padding: 0;
+  }
+}
+.search-tags ul {
+  display: flex;
+  list-style-type: none;
+  flex-wrap: wrap;
+  padding-inline-start: 0;
+  line-height: 45px;
+}
+.search-tags-item {
+  margin-right: 10px;
+}
+.search-filters {
+  display: flex;
+  align-items: flex-start;
+}
+@media screen and (max-width: 1024px) {
+  .search-filters {
+    flex-wrap: wrap;
+  }
+}
+.search-filters div {
+  margin-right: 5px;
+}
+@media screen and (max-width: 1024px) {
+  .search-filters div {
+    margin-bottom: 5px;
+  }
+}
+
+.recipes {
+  width: calc(100% - 20px * 2);
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px 0;
+}
+@media screen and (max-width: 1400px) {
+  .recipes {
+    max-width: 1100px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .recipes {
+    max-width: 1000px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .recipes {
+    max-width: 720px;
+  }
+}
+@media screen and (max-width: 760px) {
+  .recipes {
+    max-width: 480px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .recipes {
+    max-width: calc(100% - 40px);
+  }
+}
+@media screen and (max-width: 1024px) {
+  .recipes {
+    padding-top: 0;
+  }
+}
+.recipes-item {
+  background-color: #E7E7E7;
+  display: flex;
+  flex-wrap: wrap;
+  width: 32%;
+  border-radius: 5px;
+}
+@media screen and (max-width: 1024px) {
+  .recipes-item {
+    width: 49%;
+  }
+  .recipes-item:nth-child(n+3) {
+    margin-top: 2%;
+  }
+}
+@media screen and (max-width: 760px) {
+  .recipes-item {
+    width: 100%;
+  }
+  .recipes-item:nth-child(n+1) {
+    margin-top: 3%;
+  }
+}
+.recipes-item:nth-child(n+4) {
+  margin-top: 2%;
+}
+.recipes-item-banner {
+  width: 100%;
+}
+.recipes-item-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.recipes-item-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 30px 20px;
+  padding-bottom: 30px;
+}
+.recipes-item-title {
+  font-size: 18px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.recipes-item-time {
+  font-size: 18px;
+  font-weight: 700;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.recipes-item-ingredients {
+  list-style-type: none;
+  padding-inline-start: 0;
+  width: 45%;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.recipes-item-explanation {
+  width: 45%;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.dropdown {
+  background-color: #E7E7E7;
+  border-radius: 5px;
+  transition: all 300ms ease-in-out;
+  width: 300px;
+}
+.dropdown-ingredient {
+  background-color: #3282F7;
+}
+.dropdown-device {
+  background-color: #68D9A4;
+}
+.dropdown-utensil {
+  background-color: #ED6454;
+}
+.dropdown-form {
+  width: auto;
+  padding: 20px 15px;
+  padding-right: 35px;
+  position: relative;
+}
+.dropdown-form-input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+.dropdown-form-input::placeholder {
+  color: white;
+}
+.dropdown-form-input:focus::placeholder {
+  color: #E7E7E7;
+}
+.dropdown-form-button {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  color: #fff;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.dropdown-items {
+  display: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+  list-style-type: none;
+  padding: 20px 15px;
+  padding-top: 0;
+  flex-wrap: wrap;
+}
+.dropdown-items li {
+  display: block;
+  width: 33.33%;
+  margin: 2px 0;
+}
+@media screen and (max-width: 760px) {
+  .dropdown-items li {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .dropdown-items li {
+    width: 100%;
+  }
+}
+.dropdown-link {
+  color: #fff;
+  text-decoration: none;
+}
+.dropdown-open {
+  width: 100%;
+}
+.dropdown-open .dropdown-items {
+  display: flex;
+  animation: dropdownMenuSlideIn 200ms ease-in-out 0ms 1 normal;
+}
+.dropdown-open .dropdown-form-button {
+  animation: dropdownOpenButtonReverse 300ms ease-in-out 150ms 1 normal forwards;
+}
+
+@keyframes dropdownMenuSlideIn {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes dropdownOpenButtonReverse {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(180deg);
+  }
+}
+.logo {
+  height: 50px;
+  width: auto;
+}
+
+.searchbar {
+  position: relative;
+}
+.searchbar-input {
+  width: 100%;
+  color: #000;
+  background-color: #E7E7E7;
+  font-size: 18px;
+  padding: 22px;
+  padding-right: calc(22px * 2 + 18px);
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+.searchbar-button {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  font-size: 18px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.tag {
+  padding: 10px 20px;
+  padding-right: 40px;
+  position: relative;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #E7E7E7;
+  border-radius: 5px;
+}
+.tag-ingredient {
+  background-color: #3282F7;
+}
+.tag-device {
+  background-color: #68D9A4;
+}
+.tag-utensil {
+  background-color: #ED6454;
+}
+.tag-delete {
+  position: absolute;
+  top: 7.5px;
+  right: 5px;
+  font-size: 20px;
+  border: none;
+  color: #fff;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=main.css.map */
