@@ -113,12 +113,41 @@ function renderTags(tags) {
  * @param tags {Array<Object>} La liste des tags sélectionnés
  */
 function performAlgo(query, tags) {
-
+  renderRecipes([]);
+  renderTags(tags);
 }
 
 /*
 -- Gestion des tags
  */
+
+/**
+ * Cette fonction permet de retirer un tags aux paramètres de recherche
+ * @param tag {Object} L'objet du tag
+ */
+function removeTag(tag) {
+  /* Retirer le tag de la liste des tags de l'algo */
+  tags = tags.filter((elem) => tag !== elem);
+
+  /* Rajouter le tag dans son dropdown respectif */
+  switch (tag.type) {
+    case 'ingredient':
+      ingredientsDropdown.addItem(tag.name);
+      break;
+    case 'device':
+      devicesDropdown.addItem(tag.name);
+      break;
+    case 'utensil':
+      utensilsDropdown.addItem(tag.name);
+      break;
+    default:
+      break;
+  }
+
+  /* Mettre à jour le rendu des tags et recalculer les recettes */
+  renderTags(tags);
+  performAlgo(mainquery, tags);
+}
 
 /**
  * Cette fonction permet d'ajouter un tags aux paramètres de recherche
@@ -149,34 +178,10 @@ function addTag(tag) {
   /* Mettre à jour le rendu des tags et recalculer les recettes */
   renderTags(tags);
   performAlgo(mainquery, tags);
-}
 
-/**
- * Cette fonction permet de retirer un tags aux paramètres de recherche
- * @param tag {Object} L'objet du tag
- */
-function removeTag(tag) {
-  /* Retirer le tag de la liste des tags de l'algo */
-  tags = tags.filter((elem) => tag !== elem);
-
-  /* Rajouter le tag dans son dropdown respectif */
-  switch (tag.type) {
-    case 'ingredient':
-      ingredientsDropdown.addItem(tag.name);
-      break;
-    case 'device':
-      devicesDropdown.addItem(tag.name);
-      break;
-    case 'utensil':
-      utensilsDropdown.addItem(tag.name);
-      break;
-    default:
-      break;
-  }
-
-  /* Mettre à jour le rendu des tags et recalculer les recettes */
-  renderTags(tags);
-  performAlgo(mainquery, tags);
+  /* Ajout du listener pour permettre de retirer le tag */
+  const tagRemover = document.querySelector(`.search-tags-item[data-name='${tag.name}'] button`);
+  tagRemover.addEventListener('click', () => removeTag(tag));
 }
 
 /**
