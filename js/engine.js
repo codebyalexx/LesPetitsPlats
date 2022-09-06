@@ -120,13 +120,35 @@ function performAlgo(query, tags) {
 -- Gestion des tags
  */
 
-// todo : add tag
 /**
  * Cette fonction permet d'ajouter un tags aux paramètres de recherche
  * @param tag {Object} L'objet du tag
  */
 function addTag(tag) {
+  /* Cela vérifie que le tag n'est pas déjà sélectionné */
+  if (tags.includes(tag)) return;
 
+  /* Ajout du tag dans la liste des tags de l'algo */
+  tags.push(tag);
+
+  /* Cela retire le tag du dropdown en question */
+  switch (tag.type) {
+    case 'ingredient':
+      ingredientsDropdown.removeItem(tag.name);
+      break;
+    case 'device':
+      devicesDropdown.removeItem(tag.name);
+      break;
+    case 'utensil':
+      utensilsDropdown.removeItem(tag.name);
+      break;
+    default:
+      break;
+  }
+
+  /* Mettre à jour le rendu des tags et recalculer les recettes */
+  renderTags(tags);
+  performAlgo(mainquery, tags);
 }
 
 // todo : remove tag
