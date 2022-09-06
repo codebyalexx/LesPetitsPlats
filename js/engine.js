@@ -84,17 +84,19 @@ function tagTemplate(tag) {
 -- Fonctions de Rendu
  */
 
-// todo : render recipes
 /**
  * Cette fonction permet de mettre à jour visuelement les recettes dans le DOM
+ * @param recipes {Array<Object>} La liste des recettes
  */
-function renderRecipes() {
-
+function renderRecipes(recipes) {
+  /* On redéfini le HTML des recettes en fonction de l'argument recipes */
+  recipesList.innerHTML = recipes.map((recipe) => recipeTemplate(recipe)).join('');
 }
 
 // todo : render tags
 /**
  * Cette fonction permet de mettre à jour visuelement les tags dans le DOM
+ * @param
  */
 function renderTags() {
 
