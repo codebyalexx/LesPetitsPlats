@@ -60,14 +60,24 @@ function recipeTemplate(recipe) {
 </section>`;
 }
 
-// todo : tag template
 /**
  * Cette fonction permet d'obtenir le HTML d'un tag
  * @param tag {Object} Objet du tag
  * @return {String} Retourne le code HTML du tag précisé
  */
 function tagTemplate(tag) {
-  return ``;
+  /* Cela extrait les données du tag */
+  const { type, name } = tag;
+
+  /* Cela retourne le HTML du tag */
+  return `<li class="search-tags-item" data-type="${type}" data-name="{name}">
+    <span class="tag tag-${type}">
+        ${name}
+        <button class="tag-delete">
+            <i class="far fa-times-circle"></i>
+        </button>
+    </span>
+</li>`;
 }
 
 /*
