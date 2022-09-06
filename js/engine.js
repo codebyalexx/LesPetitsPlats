@@ -17,14 +17,47 @@ const availableRecipes = [];
 -- Fonctions de Template
  */
 
-// todo : recipe template
 /**
  * Cette fonction permet d'obtenir le HTML d'une recette
  * @param recipe {Object} Objet de la recette
  * @return {String} Retourne le code HTML de la recette précisée
  */
 function recipeTemplate(recipe) {
-  return ``;
+  /* Cela extrait les données de la recette et parse la description */
+  const {
+    name, time, description, ingredients,
+  } = recipe;
+  const parsedDescription = description.substring(0, 160);
+
+  /* Cela génère le HTML des ingrédients de la recette */
+  const ingredientsHTML = ingredients.map((item) => {
+    const { ingredient, unit, quantity } = item;
+    return `<li><strong>${ingredient}:</strong> ${
+      unit ? `${quantity} ${unit}` : quantity
+    }</li>`;
+  }).join('');
+
+  /* Cela renvoie le HTML de la recette */
+  return `<section class="recipes-item">
+    <img src="assets/recipes/_empty.png" alt="${name}" class="recipes-item-banner">
+    <div class="recipes-item-top">
+        <p class="recipes-item-title">${name}</p>
+        <p class="recipes-item-time">
+            <span>
+                <i class="far fa-clock"></i>
+            </span>
+            ${time} min
+        </p>
+    </div>
+    <div class="recipes-item-bottom">
+        <ul class="recipes-item-ingredients">
+            ${ingredientsHTML}
+        </ul>
+        <p class="recipes-item-explanation">
+            ${parsedDescription}
+        </p>
+    </div>
+</section>`;
 }
 
 // todo : tag template
@@ -127,4 +160,5 @@ utensilsDropdown.setCallback((name, type) => {
 /*
 -- Initialisation
  */
+/* Cela appelle la fonction qui calcule les recettes à afficher pour les rendre au chargement  */
 performAlgo(mainquery, tags);
