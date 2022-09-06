@@ -93,13 +93,13 @@ function renderRecipes(recipes) {
   recipesList.innerHTML = recipes.map((recipe) => recipeTemplate(recipe)).join('');
 }
 
-// todo : render tags
 /**
  * Cette fonction permet de mettre à jour visuelement les tags dans le DOM
- * @param
+ * @param tags {Array<Object>} La liste des tags
  */
-function renderTags() {
-
+function renderTags(tags) {
+  /* On redéfini le HTML des tags en fonction de l'argument tags */
+  recipesList.innerHTML = tags.map((tag) => tagTemplate(tag)).join('');
 }
 
 /*
