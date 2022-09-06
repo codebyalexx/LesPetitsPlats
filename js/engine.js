@@ -9,7 +9,7 @@ const devicesDropdown = new Dropdown(".dropdown[data-type='device']");
 const utensilsDropdown = new Dropdown(".dropdown[data-type='utensil']");
 
 /* Cela stocke les variables relatives à la recherche en cours */
-let tags = [];
+let usedTags = [];
 let mainquery = '';
 const availableRecipes = [];
 
@@ -127,7 +127,7 @@ function performAlgo(query, tags) {
  */
 function removeTag(tag) {
   /* Retirer le tag de la liste des tags de l'algo */
-  tags = tags.filter((elem) => tag !== elem);
+  usedTags = usedTags.filter((elem) => tag !== elem);
 
   /* Rajouter le tag dans son dropdown respectif */
   switch (tag.type) {
@@ -145,8 +145,8 @@ function removeTag(tag) {
   }
 
   /* Mettre à jour le rendu des tags et recalculer les recettes */
-  renderTags(tags);
-  performAlgo(mainquery, tags);
+  renderTags(usedTags);
+  performAlgo(mainquery, usedTags);
 }
 
 /**
@@ -155,10 +155,10 @@ function removeTag(tag) {
  */
 function addTag(tag) {
   /* Cela vérifie que le tag n'est pas déjà sélectionné */
-  if (tags.includes(tag)) return;
+  if (usedTags.includes(tag)) return;
 
   /* Ajout du tag dans la liste des tags de l'algo */
-  tags.push(tag);
+  usedTags.push(tag);
 
   /* Cela retire le tag du dropdown en question */
   switch (tag.type) {
@@ -176,8 +176,8 @@ function addTag(tag) {
   }
 
   /* Mettre à jour le rendu des tags et recalculer les recettes */
-  renderTags(tags);
-  performAlgo(mainquery, tags);
+  renderTags(usedTags);
+  performAlgo(mainquery, usedTags);
 
   /* Ajout du listener pour permettre de retirer le tag */
   const tagRemover = document.querySelector(`.search-tags-item[data-name='${tag.name}'] button`);
@@ -258,4 +258,4 @@ utensilsDropdown.setCallback((name, type) => {
 -- Initialisation
  */
 /* Cela appelle la fonction qui calcule les recettes à afficher pour les rendre au chargement  */
-performAlgo(mainquery, tags);
+performAlgo(mainquery, usedTags);
