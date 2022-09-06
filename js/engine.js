@@ -9,7 +9,7 @@ const devicesDropdown = new Dropdown(".dropdown[data-type='device']");
 const utensilsDropdown = new Dropdown(".dropdown[data-type='utensil']");
 
 /* Cela stocke les variables relatives à la recherche en cours */
-const tags = [];
+let tags = [];
 let mainquery = '';
 const availableRecipes = [];
 
@@ -151,13 +151,32 @@ function addTag(tag) {
   performAlgo(mainquery, tags);
 }
 
-// todo : remove tag
 /**
  * Cette fonction permet de retirer un tags aux paramètres de recherche
  * @param tag {Object} L'objet du tag
  */
 function removeTag(tag) {
+  /* Retirer le tag de la liste des tags de l'algo */
+  tags = tags.filter((elem) => tag !== elem);
 
+  /* Rajouter le tag dans son dropdown respectif */
+  switch (tag.type) {
+    case 'ingredient':
+      ingredientsDropdown.addItem(tag.name);
+      break;
+    case 'device':
+      devicesDropdown.addItem(tag.name);
+      break;
+    case 'utensil':
+      utensilsDropdown.addItem(tag.name);
+      break;
+    default:
+      break;
+  }
+
+  /* Mettre à jour le rendu des tags et recalculer les recettes */
+  renderTags(tags);
+  performAlgo(mainquery, tags);
 }
 
 /**
