@@ -10,7 +10,7 @@ const utensilsDropdown = new Dropdown(".dropdown[data-type='utensil']");
 
 /* Cela stocke les variables relatives à la recherche en cours */
 const tags = [];
-const mainquery = '';
+let mainquery = '';
 const availableRecipes = [];
 
 /*
@@ -116,15 +116,6 @@ function performAlgo(query, tags) {
 
 }
 
-// todo : handle inputs
-/**
- * Cette fonction est appélée lorsqu'un facteur de recherche est modifié (barre de recherche, tags)
- * @param e {Event} Objet de l'événement
- */
-function handleInputsChange(e) {
-
-}
-
 /*
 -- Gestion des tags
  */
@@ -147,6 +138,24 @@ function removeTag(tag) {
 
 }
 
+/**
+ * Cette fonction est appélée lorsqu'un facteur de recherche est modifié (barre de recherche, tags)
+ * @param e {Event} Objet de l'événement
+ */
+function handleInputsChange(e) {
+  const { name, value } = e.target;
+  switch (name) {
+    case 'searchbar':
+      mainquery = value;
+      break;
+    case 'tag':
+      addTag(value);
+      break;
+    default:
+      throw new Error('Unhandled input change');
+  }
+}
+
 /*
 -- Ecoute des événements
  */
@@ -156,17 +165,47 @@ searchBar.addEventListener('keyup', handleInputsChange);
 
 /* Evenement appelé lorsqu'un ingrédient est ajouté depuis un dropdown */
 ingredientsDropdown.setCallback((name, type) => {
-
+  // eslint-disable-next-line no-undef
+  const tag = new Tag({
+    name,
+    type,
+  });
+  handleInputsChange({
+    target: {
+      name: 'tag',
+      value: tag,
+    },
+  });
 });
 
 /* Evenement appelé lorsqu'un appareil est ajouté depuis un dropdown */
 devicesDropdown.setCallback((name, type) => {
-
+// eslint-disable-next-line no-undef
+  const tag = new Tag({
+    name,
+    type,
+  });
+  handleInputsChange({
+    target: {
+      name: 'tag',
+      value: tag,
+    },
+  });
 });
 
 /* Evenement appelé lorsqu'un ustensil est ajouté depuis un dropdown */
 utensilsDropdown.setCallback((name, type) => {
-
+  // eslint-disable-next-line no-undef
+  const tag = new Tag({
+    name,
+    type,
+  });
+  handleInputsChange({
+    target: {
+      name: 'tag',
+      value: tag,
+    },
+  });
 });
 
 /*
