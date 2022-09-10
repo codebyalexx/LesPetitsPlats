@@ -6,12 +6,11 @@ const recipesList = document.querySelector('#recipes');
 /* Cela rend les dropdowns du DOM dynamiques grâce à la classe Dropdown */
 const ingredientsDropdown = new Dropdown(".dropdown[data-type='ingredient']");
 const devicesDropdown = new Dropdown(".dropdown[data-type='device']");
-const utensilsDropdown = new Dropdown(".dropdown[data-type='utensil']");
+const ustensilsDropdown = new Dropdown(".dropdown[data-type='ustensil']");
 
 /* Cela stocke les variables relatives à la recherche en cours */
 let usedTags = [];
 let mainquery = '';
-const availableRecipes = [];
 
 /*
 -- Fonctions de Template
@@ -90,7 +89,8 @@ function tagTemplate(tag) {
  */
 function renderRecipes(recipes) {
   /* On redéfini le HTML des recettes en fonction de l'argument recipes */
-  recipesList.innerHTML = recipes.map((recipe) => recipeTemplate(recipe)).join('');
+  const html = recipes.map((recipe) => recipeTemplate(recipe)).join('');
+  recipesList.innerHTML = html;
 }
 
 /**
@@ -99,7 +99,8 @@ function renderRecipes(recipes) {
  */
 function renderTags(tags) {
   /* On redéfini le HTML des tags en fonction de l'argument tags */
-  recipesList.innerHTML = tags.map((tag) => tagTemplate(tag)).join('');
+  const html = tags.map((tag) => tagTemplate(tag)).join('');
+  tagsList.innerHTML = html;
 }
 
 /*
@@ -113,8 +114,62 @@ function renderTags(tags) {
  * @param tags {Array<Object>} La liste des tags sélectionnés
  */
 function performAlgo(query, tags) {
-  renderRecipes([]);
-  renderTags(tags);
+  // eslint-disable-next-line no-undef
+  let recipes = getRecipes();
+  let availableTags = [];
+
+  /* Retirer les recettes en fonction des tags sélectionnés */
+  recipes = recipes.filter((recipe) => {
+    return tags.every(tag => recipe.getTags().some((recipeTag) => recipeTag.equals(tag)))
+  })
+
+  /* todo Effectuer la recherche via la query */
+  if (query.length >= 3) {
+
+  }
+
+  /* Ajouter les tags disponibles en fonction des recettes disponibles après la recherche */
+  recipes.forEach((recipe) => {
+    availableTags = availableTags.concat(recipe.getTags())
+  })
+
+  /* Retirer les tags sélectionnés */
+  availableTags = availableTags.filter((availableTag) => {
+    return !usedTags.some((usedTag) => usedTag.equals(availableTag))
+  })
+
+  /* Supprimer les tags dupliqués */
+  const cleanTags = []
+  availableTags.forEach((tag) => {
+    if (cleanTags.some((cleanTag) => cleanTag.equals(tag))) return;
+    cleanTags.push(tag)
+  })
+
+  /* Vider les dropdowns */
+  ingredientsDropdown.clearItems();
+  devicesDropdown.clearItems();
+  ustensilsDropdown.clearItems();
+
+  /* Redéfinir les Dropdowns */
+  cleanTags.forEach((tag) => {
+    switch (tag.type) {
+      case 'ingredient':
+        ingredientsDropdown.addItem(tag.name)
+        break;
+      case 'device':
+        devicesDropdown.addItem(tag.name)
+        break;
+      case 'ustensil':
+        ustensilsDropdown.addItem(tag.name)
+        break;
+      default:
+        throw new Error("Unhandled tag type used!")
+        break;
+    }
+  })
+
+  renderRecipes(recipes);
+  renderTags(usedTags);
 }
 
 /*
@@ -137,8 +192,8 @@ function removeTag(tag) {
     case 'device':
       devicesDropdown.addItem(tag.name);
       break;
-    case 'utensil':
-      utensilsDropdown.addItem(tag.name);
+    case 'ustensil':
+      ustensilsDropdown.addItem(tag.name);
       break;
     default:
       break;
@@ -155,7 +210,7 @@ function removeTag(tag) {
  */
 function addTag(tag) {
   /* Cela vérifie que le tag n'est pas déjà sélectionné */
-  if (usedTags.includes(tag)) return;
+  if (usedTags.some((usedTag) => usedTag.equals(tag))) return;
 
   /* Ajout du tag dans la liste des tags de l'algo */
   usedTags.push(tag);
@@ -168,8 +223,8 @@ function addTag(tag) {
     case 'device':
       devicesDropdown.removeItem(tag.name);
       break;
-    case 'utensil':
-      utensilsDropdown.removeItem(tag.name);
+    case 'ustensil':
+      ustensilsDropdown.removeItem(tag.name);
       break;
     default:
       break;
@@ -190,6 +245,7 @@ function addTag(tag) {
  */
 function handleInputsChange(e) {
   const { name, value } = e.target;
+
   switch (name) {
     case 'searchbar':
       mainquery = value;
@@ -200,6 +256,8 @@ function handleInputsChange(e) {
     default:
       throw new Error('Unhandled input change');
   }
+
+  performAlgo(mainquery, usedTags);
 }
 
 /*
@@ -240,7 +298,7 @@ devicesDropdown.setCallback((name, type) => {
 });
 
 /* Evenement appelé lorsqu'un ustensil est ajouté depuis un dropdown */
-utensilsDropdown.setCallback((name, type) => {
+ustensilsDropdown.setCallback((name, type) => {
   // eslint-disable-next-line no-undef
   const tag = new Tag({
     name,
