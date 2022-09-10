@@ -129,9 +129,65 @@ function performAlgo(query, tags) {
     return tags.every(tag => recipe.getTags().some((recipeTag) => recipeTag.equals(tag)))
   })
 
-  /* todo Effectuer la recherche via la query */
+  /* Effectuer la recherche via la query */
   if (query.length >= 3) {
+    /* On parse la query */
+    const parsedQuery = mainquery.toLowerCase().trim().replaceAll("  ", "");
+    const parsedQueryArray = parsedQuery.split(" ");
 
+    /* On filtre les recettes */
+    recipes = recipes.filter(function (recipe) {
+      /* On divise le nom en différents mots clés */
+      const parsedRecipeNameArray = recipe.name
+        .toLowerCase()
+        .trim()
+        .replaceAll("  ", "")
+        .split(" ");
+
+      /* On divise le nom en différents mots clés */
+      const parsedRecipeDescriptionArray = recipe.description
+        .toLowerCase()
+        .trim()
+        .replaceAll("  ", "")
+        .split(" ");
+
+      /* On divise les ingrédients en mots clés */
+      const parsedRecipeIngredientsArray = recipe.ingredients.map(function (
+        ingredient
+      ) {
+        return ingredient.ingredient.toLowerCase().trim();
+      });
+
+      /* On regarde si les mots clés correspondent à la query */
+      const nameCond = parsedQueryArray.every((item) => {
+        return (
+          parsedRecipeNameArray.filter(function (nameItem) {
+            return nameItem.includes(item);
+          }).length > 0
+        );
+      });
+
+      /* On regarde si les mots clés correspondent à la query */
+      const descriptionCond = parsedQueryArray.every((item) => {
+        return (
+          parsedRecipeDescriptionArray.filter(function (descritipionItem) {
+            return descritipionItem.includes(item);
+          }).length > 0
+        );
+      });
+
+      /* On regarde si les mots clés correspondent à la query */
+      const ingredientsCond = parsedQueryArray.every((item) => {
+        return (
+          parsedRecipeIngredientsArray.filter(function (ingredientItem) {
+            return ingredientItem.includes(item);
+          }).length > 0
+        );
+      });
+
+      /* On retourne true si une des conditions est respectée */
+      return nameCond || descriptionCond || ingredientsCond;
+    });
   }
 
   /* Ajouter les tags disponibles en fonction des recettes disponibles après la recherche */
