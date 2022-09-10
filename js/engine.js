@@ -131,7 +131,24 @@ function performAlgo(query, tags) {
 
   /* todo Effectuer la recherche via la query */
   if (query.length >= 3) {
+    const parsedQuery = mainquery.toLocaleLowerCase();
+    recipes = recipes.filter(function (recipe) {
+      const parsedRecipeName = recipe.name.toLowerCase();
+      const parsedRecipeDescription = recipe.description.toLowerCase();
+      const parsedRecipeIngredients = recipe.ingredients
+        .map(function (ingredient) {
+          return ingredient.ingredient.toLowerCase();
+        })
+        .join(" ");
 
+      const nameCondition = parsedRecipeName.includes(parsedQuery);
+      const descriptionCondition =
+        parsedRecipeDescription.includes(parsedQuery);
+      const ingredientsCondition =
+        parsedRecipeIngredients.includes(parsedQuery);
+
+      return nameCondition || descriptionCondition || ingredientsCondition;
+    });
   }
 
   /* Ajouter les tags disponibles en fonction des recettes disponibles après la recherche */
