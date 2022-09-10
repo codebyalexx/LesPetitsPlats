@@ -69,7 +69,7 @@ function tagTemplate(tag) {
   const { type, name } = tag;
 
   /* Cela retourne le HTML du tag */
-  return `<li class="search-tags-item" data-type="${type}" data-name="{name}">
+  return `<li class="search-tags-item" data-type="${type}" data-name="${name}">
     <span class="tag tag-${type}">
         ${name}
         <button class="tag-delete">
@@ -101,6 +101,12 @@ function renderTags(tags) {
   /* On redéfini le HTML des tags en fonction de l'argument tags */
   const html = tags.map((tag) => tagTemplate(tag)).join('');
   tagsList.innerHTML = html;
+
+  /* Ajout des listeners pour permettre de retirer les tags */
+  tags.forEach((tag) => {
+    const tagRemover = document.querySelector(`.search-tags-item[data-name='${tag.name}'] button`);
+    tagRemover.addEventListener('click', () => removeTag(tag));
+  })
 }
 
 /*
@@ -233,10 +239,6 @@ function addTag(tag) {
   /* Mettre à jour le rendu des tags et recalculer les recettes */
   renderTags(usedTags);
   performAlgo(mainquery, usedTags);
-
-  /* Ajout du listener pour permettre de retirer le tag */
-  const tagRemover = document.querySelector(`.search-tags-item[data-name='${tag.name}'] button`);
-  tagRemover.addEventListener('click', () => removeTag(tag));
 }
 
 /**
