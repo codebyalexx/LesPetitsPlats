@@ -129,10 +129,14 @@ function performAlgo(query, tags) {
     return tags.every(tag => recipe.getTags().some((recipeTag) => recipeTag.equals(tag)))
   })
 
-  /* todo Effectuer la recherche via la query */
+  /* Effectuer la recherche via la query */
   if (query.length >= 3) {
+    /* On parse la query */
     const parsedQuery = mainquery.toLocaleLowerCase();
+
+    /* On tri les recettes en fonction de la query */
     recipes = recipes.filter(function (recipe) {
+      /* On parse les différents paramètres de la recettes */
       const parsedRecipeName = recipe.name.toLowerCase();
       const parsedRecipeDescription = recipe.description.toLowerCase();
       const parsedRecipeIngredients = recipe.ingredients
@@ -141,12 +145,18 @@ function performAlgo(query, tags) {
         })
         .join(" ");
 
+      /* On vérifie que le nom contiens la query */
       const nameCondition = parsedRecipeName.includes(parsedQuery);
+
+      /* On vérifie que la description contiens la query */
       const descriptionCondition =
         parsedRecipeDescription.includes(parsedQuery);
+
+      /* On vérifie que les ingrédients contienent la query */
       const ingredientsCondition =
         parsedRecipeIngredients.includes(parsedQuery);
 
+      /* On retourne true sur une des conditions est respectée */
       return nameCondition || descriptionCondition || ingredientsCondition;
     });
   }
