@@ -30,4 +30,13 @@ class Tag {
   get type() {
     return this.#type;
   }
+
+  /**
+   * Détermine si le tag est égal à un autre
+   * @param tag {Tag} Le tag à vérifier
+   * @return {Boolean} Retourne si le tag précisé est égal à this
+   */
+  equals(tag) {
+    return tag.name === this.#name && tag.type === this.#type
+  }
 }
